@@ -1,23 +1,25 @@
 [include]
-  path = ~/.gitconfig.local
+    path = ~/.gitconfig.local
 [alias]
-	graph = log --graph --oneline --decorate
-	tree = log --decorate --oneline --graph --all
-	diffw = diff --word-diff=color
-	grep = grep --color -n
-  s = status -s
-  a = add -p
-  d = diff
-	t = log --decorate --oneline --graph --all -n
+    graph = log --graph --oneline --decorate
+    tree = log --decorate --oneline --graph --all
+    diffw = diff --word-diff=color
+    grep = grep --color -n
+    s = status -s
+    a = add -p
+    d = diff
+    t = log --decorate --oneline --graph --all -n
 [color]
-  ui = auto
+    ui = auto
 [svn]
-  rmdir = true
+    rmdir = true
 [merge]
-	ff = false
-	tool = vimdiff
+    ff = false
+    tool = vimdiff
 [pager]
-	log = diff-highlight | less
-	show = diff-highlight | less
-	diff = diff-highlight | less
+    log = diff-highlight | less
+    show = diff-highlight | less
+    diff = diff-highlight | less
 
+[core]
+	editor = vim
