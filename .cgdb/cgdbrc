@@ -1,6 +1,0 @@
-map r :run
-map c :continue
-map f :finish
-map n :next
-map s :step
-map q :quit

@@ -6,9 +6,13 @@ set incsearch
 set whichwrap=b,s,h,l,<,>,[,]
 set nu
 set autoindent
-
+set laststatus=2
+set t_Co=256
 
 imap <C-l> <del>
+
+nnoremap x "_x
+nnoremap q <C-w>
 
 "TagList.vim
 "sudo apt-get install exuberant-ctags
@@ -19,3 +23,40 @@ let Tlist_Use_Right_Window = 1          " 右側にtag listのウインドうを
 let Tlist_Exit_OnlyWindow = 1           " taglistのウインドウだけならVimを閉じる
 let Tlist_WinWidth = 50
 map <silent> <leader>l :TlistToggle<CR> " \lでtaglistウインドウを開いたり閉じたり出来るショートカット
+
+
+"NeoBundle"
+if has('vim_starting')
+  set nocompatible
+  set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
+
+call neobundle#begin(expand('~/.vim/bundle/'))
+
+let g:neobundle_default_git_protocol='https'
+
+NeoBundleFetch 'Shougo/neobundle.vim'
+NeoBundle 'thinca/vim-quickrun'
+NeoBundle 'itchyny/lightline.vim'
+NeoBundle 'tomasr/molokai'
+
+call neobundle#end()
+
+filetype plugin indent on
+
+
+
+"Setting for QuickRun"
+let g:quickrun_config = {
+      \  '_': {
+      \    'hook/time/enable': '1',
+      \    'outputter/buffer/split': ':botright 10sp'
+      \  },
+      \}
+
+"Setting for lightline"
+let g:lightline = {
+      \ 'colorscheme': 'wombat'
+      \}
+
+colorscheme molokai
