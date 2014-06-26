@@ -36,15 +36,18 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 let g:neobundle_default_git_protocol='https'
 
 NeoBundleFetch 'Shougo/neobundle.vim'
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'itchyny/lightline.vim'
+"Color scheme
 NeoBundle 'tomasr/molokai'
+NeoBundle 'w0ng/vim-hybrid'
+NeoBundle 'cocopon/lightline-hybrid.vim'
 
 call neobundle#end()
-
 filetype plugin indent on
-
-
+NeoBundleCheck
 
 "Setting for QuickRun"
 let g:quickrun_config = {
@@ -59,4 +62,4 @@ let g:lightline = {
       \ 'colorscheme': 'wombat'
       \}
 
-colorscheme molokai
+colorscheme hybrid
