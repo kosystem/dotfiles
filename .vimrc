@@ -1,4 +1,3 @@
-colorscheme elflord
 set shiftwidth=2
 set tabstop=2
 set expandtab
@@ -8,6 +7,8 @@ set nu
 set autoindent
 set laststatus=2
 set t_Co=256
+set nobackup
+set noundofile
 
 imap <C-l> <del>
 
@@ -25,7 +26,7 @@ let Tlist_WinWidth = 50
 map <silent> <leader>l :TlistToggle<CR> " \lでtaglistウインドウを開いたり閉じたり出来るショートカット
 
 
-"NeoBundle"
+"NeoBundle
 if has('vim_starting')
   set nocompatible
   set runtimepath+=~/.vim/bundle/neobundle.vim/
@@ -43,13 +44,24 @@ NeoBundle 'itchyny/lightline.vim'
 "Color scheme
 NeoBundle 'tomasr/molokai'
 NeoBundle 'w0ng/vim-hybrid'
-NeoBundle 'cocopon/lightline-hybrid.vim'
+NeoBundle 'cocopon/lightline-hybrid.vim'  "lightline color scheme
 
 call neobundle#end()
 filetype plugin indent on
 NeoBundleCheck
 
-"Setting for QuickRun"
+"Setting for Unite
+let g:unite_enable_start_insert=1
+let g:unite_source_history_yank_enable=1
+
+nnoremap <silent> ,uy :<C-u>Unite history/yank<CR>
+nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
+nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
+nnoremap <silent> ,uu :<C-u>Unite file_mur buffer<CR>
+
+
+"setting for QuickRun
 let g:quickrun_config = {
       \  '_': {
       \    'hook/time/enable': '1',
@@ -59,7 +71,9 @@ let g:quickrun_config = {
 
 "Setting for lightline"
 let g:lightline = {
-      \ 'colorscheme': 'wombat'
+      \ 'colorscheme': 'hybrid'
       \}
 
-colorscheme hybrid
+if !has('win32')
+  colorscheme hybrid
+endif
