@@ -13,6 +13,7 @@ set noundofile
 imap <C-l> <del>
 
 nnoremap x "_x
+nnoremap s "_s
 nnoremap q <C-w>
 
 "TagList.vim
@@ -41,6 +42,16 @@ NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'itchyny/lightline.vim'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'kmnk/vim-unite-giti'
+
+NeoBundle 'Yggdroot/indentLine'
+"indentLine
+let g:indentLine_char="|"
+set list listchars=tab:\|\ 
+"NeoBundle 'bronson/vim-trailing-whitespace'
+
+
 "Color scheme
 NeoBundle 'tomasr/molokai'
 NeoBundle 'w0ng/vim-hybrid'
