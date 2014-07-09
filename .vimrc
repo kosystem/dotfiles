@@ -49,7 +49,7 @@ NeoBundle 'Yggdroot/indentLine'
 "indentLine
 let g:indentLine_char="|"
 let g:indentLine_color_term=239
-let g:indentLine_color_gui='#A4E57E'
+let g:indentLine_color_gui='#505050'
 set list listchars=tab:\|\ 
 "NeoBundle 'bronson/vim-trailing-whitespace'
 
