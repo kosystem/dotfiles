@@ -9,12 +9,20 @@ set laststatus=2
 set t_Co=256
 set nobackup
 set noundofile
+set nowrap
+set clipboard=unnamed
+set hidden
+set confirm
+set showmatch
+set smarttab
+set spelllang+=cjk
 
 imap <C-l> <del>
 
 nnoremap x "_x
 nnoremap s "_s
 nnoremap q <C-w>
+nnoremap <silent><C-^> <Nop>
 
 "TagList.vim
 "sudo apt-get install exuberant-ctags
@@ -26,6 +34,21 @@ let Tlist_Exit_OnlyWindow = 1           " taglistのウインドウだけならV
 let Tlist_WinWidth = 50
 map <silent> <leader>l :TlistToggle<CR> " \lでtaglistウインドウを開いたり閉じたり出来るショートカット
 
+
+" 全角スペースの表示
+function! ZenkakuSpace()
+    highlight ZenkakuSpace cterm=reverse ctermfg=DarkGray gui=reverse guifg=DarkGray
+endfunction
+if has('syntax')
+    augroup ZenkakuSpace
+        autocmd!
+        "ZenkakuSpace をカラーファイルで設定するなら、
+        "次の行をコメントアウト
+        autocmd ColorScheme       * call ZenkakuSpace()
+        autocmd VimEnter,WinEnter * match ZenkakuSpace /　/
+    augroup END
+    call ZenkakuSpace()
+endif
 
 "NeoBundle
 if has('vim_starting')
@@ -44,6 +67,8 @@ NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'kmnk/vim-unite-giti'
+NeoBundle 'soramugi/auto-ctags.vim'
+"NeoBundle 'rcmdnk/vim-markdown'
 
 NeoBundle 'Yggdroot/indentLine'
 "indentLine
