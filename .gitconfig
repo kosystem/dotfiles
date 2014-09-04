@@ -15,6 +15,7 @@
   rmdir = true
 [merge]
 	ff = false
+	tool = vimdiff
 [pager]
 	log = diff-highlight | less
 	show = diff-highlight | less
