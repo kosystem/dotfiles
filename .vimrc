@@ -70,6 +70,8 @@ NeoBundle 'kmnk/vim-unite-giti'
 NeoBundle 'soramugi/auto-ctags.vim'
 "NeoBundle 'rcmdnk/vim-markdown'
 
+NeoBundle 'davidhalter/jedi-vim'
+
 NeoBundle 'Yggdroot/indentLine'
 "indentLine
 let g:indentLine_char="|"
@@ -98,6 +100,9 @@ nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
 nnoremap <silent> ,uu :<C-u>Unite file_mru buffer<CR>
 
+"setting for jedi-vim
+let g:jedi#rename_command = '<Leader>R'
+let g:jedi#popup_select_first = 0
 
 "setting for QuickRun
 let g:quickrun_config = {
