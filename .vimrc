@@ -1,6 +1,8 @@
+let $PATH = "~/.pyenv/shims:".$PATH
+
 syntax on
-set shiftwidth=2
-set tabstop=2
+set shiftwidth=4
+set tabstop=4
 set expandtab
 set incsearch
 set whichwrap=b,s,h,l,<,>,[,]
@@ -70,8 +72,15 @@ NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'kmnk/vim-unite-giti'
 NeoBundle 'soramugi/auto-ctags.vim'
 "NeoBundle 'rcmdnk/vim-markdown'
+NeoBundle 'scrooloose/syntastic'
+let g:syntastic_python_checkers = ['pyflakes', 'pep8']
 
 NeoBundle 'davidhalter/jedi-vim'
+NeoBundleLazy 'lambdalisue/vim-pyenv', {
+      \ "depends": ['davidhalter/jedi-vim'],
+      \ "autoload": {
+      \   "filetypes": ["python", "python3", "djangohtml"]
+      \ }}
 
 NeoBundle 'Yggdroot/indentLine'
 "indentLine
@@ -104,20 +113,36 @@ nnoremap <silent> ,uu :<C-u>Unite file_mru buffer<CR>
 "setting for jedi-vim
 let g:jedi#rename_command = '<Leader>R'
 let g:jedi#popup_select_first = 0
+autocmd FileType python setlocal completeopt-=preview
 
 "setting for QuickRun
-let g:quickrun_config = {
-      \  '_': {
-      \    'hook/time/enable': '1',
-      \    'outputter/buffer/split': ':botright 10sp'
-      \  },
-      \}
+"let g:quickrun_config = {
+"      \  '_': {
+"      \    'hook/time/enable': '1',
+"      \    'outputter/buffer/split': ':botright 10sp'
+"      \  },
+"      \}
+"let g:quickrun_config['*'] = {'runmode': "async:remote:vimproc", 'split': 'below'}
+
+"python test by QuickRun
+"autocmd BufWinEnter,BufNewFile test*.py set filetype=python.test
+"let g:quickrun_config['python.test'] = {'command': 'py.test', 'cmdopt': '-s -v'}
 
 "Setting for lightline"
 let g:lightline = {
-      \ 'colorscheme': 'hybrid'
+      \ 'colorscheme': 'hybrid',
+      \ 'active': {
+      \   'left': [ 
+      \       [ 'mode', 'paste' ], 
+      \       [ 'pyenv'],
+      \       [ 'fugitive', 'filename' ] 
+      \   ]
+      \ }
       \}
 
 if !has('win32')
   colorscheme hybrid
 endif
+
+
+set whichwrap=b,s,h,l,<,>,[,]
