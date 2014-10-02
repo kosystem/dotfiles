@@ -4,56 +4,31 @@ syntax on
 set shiftwidth=4
 set tabstop=4
 set expandtab
-set incsearch
+set autoindent
 set whichwrap=b,s,h,l,<,>,[,]
 set nu
-set autoindent
 set laststatus=2
 set t_Co=256
 set nobackup
 set noundofile
-set nowrap
-set clipboard=unnamed
+set clipboard+=unnamed
 set hidden
 set confirm
 set showmatch
+set matchtime=3
 set smarttab
 set spelllang+=cjk
+" search option
+set ignorecase
+set smartcase
+set incsearch
+set hlsearch
 
-imap <C-l> <del>
+set wrap
+set textwidth=0
+set colorcolumn=80
 
-nnoremap x "_x
-nnoremap s "_s
-nnoremap q <C-w>
-nnoremap <silent><C-^> <Nop>
-
-"TagList.vim
-"sudo apt-get install exuberant-ctags
-set tags=tags
-"let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"  " ctagsのコマンド
-let Tlist_Show_One_File = 1             " 現在表示中のファイルのみのタグしか表示しない
-let Tlist_Use_Right_Window = 1          " 右側にtag listのウインドうを表示する
-let Tlist_Exit_OnlyWindow = 1           " taglistのウインドウだけならVimを閉じる
-let Tlist_WinWidth = 50
-map <silent> <leader>l :TlistToggle<CR> " \lでtaglistウインドウを開いたり閉じたり出来るショートカット
-
-
-" 全角スペースの表示
-function! ZenkakuSpace()
-    highlight ZenkakuSpace cterm=reverse ctermfg=DarkGray gui=reverse guifg=DarkGray
-endfunction
-if has('syntax')
-    augroup ZenkakuSpace
-        autocmd!
-        "ZenkakuSpace をカラーファイルで設定するなら、
-        "次の行をコメントアウト
-        autocmd ColorScheme       * call ZenkakuSpace()
-        autocmd VimEnter,WinEnter * match ZenkakuSpace /　/
-    augroup END
-    call ZenkakuSpace()
-endif
-
-"NeoBundle
+" NeoBundle ---------------------------------------------------------
 if has('vim_starting')
   set nocompatible
   set runtimepath+=~/.vim/bundle/neobundle.vim/
@@ -64,16 +39,19 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 let g:neobundle_default_git_protocol='https'
 
 NeoBundleFetch 'Shougo/neobundle.vim'
+
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neomru.vim'
+NeoBundle 'Shougo/neocomplcache'
+NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/neosnippet-snippets'
+
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'itchyny/lightline.vim'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'kmnk/vim-unite-giti'
-NeoBundle 'soramugi/auto-ctags.vim'
-"NeoBundle 'rcmdnk/vim-markdown'
+"NeoBundle 'tpope/vim-fugitive'
+"NeoBundle 'kmnk/vim-unite-giti'
+"NeoBundle 'soramugi/auto-ctags.vim'
 NeoBundle 'scrooloose/syntastic'
-let g:syntastic_python_checkers = ['pyflakes', 'pep8']
 
 NeoBundle 'davidhalter/jedi-vim'
 NeoBundleLazy 'lambdalisue/vim-pyenv', {
@@ -83,24 +61,28 @@ NeoBundleLazy 'lambdalisue/vim-pyenv', {
       \ }}
 
 NeoBundle 'Yggdroot/indentLine'
-"indentLine
-let g:indentLine_char="|"
-let g:indentLine_color_term=239
-let g:indentLine_color_gui='#505050'
-set list listchars=tab:\|\ 
 "NeoBundle 'bronson/vim-trailing-whitespace'
 
-
-"Color scheme
-NeoBundle 'tomasr/molokai'
+"Color schemes ------------------------
+"NeoBundle 'tomasr/molokai'
 NeoBundle 'w0ng/vim-hybrid'
 NeoBundle 'cocopon/lightline-hybrid.vim'  "lightline color scheme
 
 call neobundle#end()
 filetype plugin indent on
 NeoBundleCheck
+" End NeoBundle -----------------------------------------------------
 
-"Setting for Unite
+" Syntastic ---------------------------
+let g:syntastic_python_checkers = ['pyflakes', 'pep8']
+
+" IndentLine --------------------------
+let g:indentLine_char="|"
+let g:indentLine_color_term=239
+let g:indentLine_color_gui='#505050'
+set list listchars=tab:\|\ 
+
+" Unite -------------------------------
 let g:unite_enable_start_insert=1
 let g:unite_source_history_yank_enable=1
 
@@ -110,7 +92,7 @@ nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
 nnoremap <silent> ,uu :<C-u>Unite file_mru buffer<CR>
 
-"setting for jedi-vim
+" jedi-vim ----------------------------
 let g:jedi#rename_command = '<Leader>R'
 let g:jedi#popup_select_first = 0
 autocmd FileType python setlocal completeopt-=preview
@@ -128,21 +110,77 @@ autocmd FileType python setlocal completeopt-=preview
 "autocmd BufWinEnter,BufNewFile test*.py set filetype=python.test
 "let g:quickrun_config['python.test'] = {'command': 'py.test', 'cmdopt': '-s -v'}
 
-"Setting for lightline"
+"Setting for lightline ----------------
 let g:lightline = {
-      \ 'colorscheme': 'hybrid',
-      \ 'active': {
-      \   'left': [ 
-      \       [ 'mode', 'paste' ], 
-      \       [ 'pyenv'],
-      \       [ 'fugitive', 'filename' ] 
-      \   ]
-      \ }
-      \}
+    \ 'colorscheme': 'hybrid'
+    \}
 
+" Colorcheme setting ------------------
 if !has('win32')
   colorscheme hybrid
 endif
 
+" Zenkaku -----------------------------
+" Show 2byte space
+function! ZenkakuSpace()
+    highlight ZenkakuSpace cterm=reverse ctermfg=DarkGray gui=reverse guifg=DarkGray
+endfunction
+if has('syntax')
+    augroup ZenkakuSpace
+        autocmd!
+        autocmd ColorScheme       * call ZenkakuSpace()
+        autocmd VimEnter,WinEnter * match ZenkakuSpace /　/
+    augroup END
+    call ZenkakuSpace()
+endif
 
+" Ctags -------------------------------
+" "TagList.vim
+" "sudo apt-get install exuberant-ctags
+" set tags=tags
+" "let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"  " ctagsのコマンド
+" let Tlist_Show_One_File = 1             " 現在表示中のファイルのみのタグしか表示しない
+" let Tlist_Use_Right_Window = 1          " 右側にtag listのウインドうを表示する
+" let Tlist_Exit_OnlyWindow = 1           " taglistのウインドウだけならVimを閉じる
+" let Tlist_WinWidth = 50
+" map <silent> <leader>l :TlistToggle<CR> " \lでtaglistウインドウを開いたり閉じたり出来るショートカット
+
+" NeoComplcache -----------------------
+let g:acp_enableAtStartup = 0
+let g:neocomplcache_enable_at_startup = 1
+let g:neocomplcache_enable_smart_case = 1
+let g:neocomplcache_min_syntax_length = 3
+let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+
+let g:neocomplcache_dictionary_filetype_lists = {
+    \ 'default' : ''
+    \ }
+
+inoremap <expr><C-g>     neocomplcache#undo_completion()
+inoremap <expr><C-l>     neocomplcache#complete_common_string()
+
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplcache#close_popup()
+inoremap <expr><C-e>  neocomplcache#cancel_popup()
+
+" NeoSnippet --------------------------
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" Key maps ----------------------------------------------------------
+
+inoremap <C-l> <del>
+
+nnoremap x "_x
+nnoremap s "_s
+nnoremap q <C-w>
+nnoremap <silent><C-^> <Nop>
+nnoremap <ESC><ESC> :nohlsearch<CR>
 set whichwrap=b,s,h,l,<,>,[,]
+
+
