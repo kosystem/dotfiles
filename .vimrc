@@ -93,8 +93,16 @@ nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
 nnoremap <silent> ,uu :<C-u>Unite file_mru buffer<CR>
 
 " jedi-vim ----------------------------
+autocmd FileType python setlocal omnifunc=jedi#completions
 let g:jedi#rename_command = '<Leader>R'
 let g:jedi#popup_select_first = 0
+let g:jedi#popup_on_dot = 1
+let g:jedi#completions_enabled = 0
+let g:jedi#auto_vim_configuration = 0
+if !exists('g:neocomplcache_force_omni_patterns')
+    let g:neocomplcache_force_omni_patterns = {}
+endif
+let g:neocomplcache_force_omni_patterns.python = '[^. \t]\.\w*'
 autocmd FileType python setlocal completeopt-=preview
 
 "setting for QuickRun
