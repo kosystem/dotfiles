@@ -41,8 +41,8 @@ let g:neobundle_default_git_protocol='https'
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 NeoBundle 'Shougo/unite.vim'
+NeoBundle has('lua') ? 'Shougo/neocomplete' : 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neomru.vim'
-NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
 
@@ -62,9 +62,10 @@ NeoBundleLazy 'lambdalisue/vim-pyenv', {
 
 NeoBundle 'Yggdroot/indentLine'
 "NeoBundle 'bronson/vim-trailing-whitespace'
+NeoBundle 'sentientmachine/Pretty-Vim-Python'
 
 "Color schemes ------------------------
-"NeoBundle 'tomasr/molokai'
+NeoBundle 'tomasr/molokai'
 NeoBundle 'w0ng/vim-hybrid'
 NeoBundle 'cocopon/lightline-hybrid.vim'  "lightline color scheme
 
@@ -92,19 +93,6 @@ nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
 nnoremap <silent> ,uu :<C-u>Unite file_mru buffer<CR>
 
-" jedi-vim ----------------------------
-autocmd FileType python setlocal omnifunc=jedi#completions
-let g:jedi#rename_command = '<Leader>R'
-let g:jedi#popup_select_first = 0
-let g:jedi#popup_on_dot = 1
-let g:jedi#completions_enabled = 0
-let g:jedi#auto_vim_configuration = 0
-if !exists('g:neocomplcache_force_omni_patterns')
-    let g:neocomplcache_force_omni_patterns = {}
-endif
-let g:neocomplcache_force_omni_patterns.python = '[^. \t]\.\w*'
-autocmd FileType python setlocal completeopt-=preview
-
 "setting for QuickRun
 "let g:quickrun_config = {
 "      \  '_': {
@@ -125,7 +113,7 @@ let g:lightline = {
 
 " Colorcheme setting ------------------
 if !has('win32')
-  colorscheme hybrid
+  colorscheme molokai
 endif
 
 " Zenkaku -----------------------------
@@ -154,31 +142,83 @@ endif
 " map <silent> <leader>l :TlistToggle<CR> " \lでtaglistウインドウを開いたり閉じたり出来るショートカット
 
 " NeoComplcache -----------------------
-let g:acp_enableAtStartup = 0
-let g:neocomplcache_enable_at_startup = 1
-let g:neocomplcache_enable_smart_case = 1
-let g:neocomplcache_min_syntax_length = 3
-let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+if neobundle#is_installed('neocomplete')
+    let g:neocomplete#enable_at_startup = 1
+    let g:neocomplete#enable_ignore_case = 1
+    let g:neocomplete#enable_smart_case = 1
+    let g:neocomplete#sources#syntax#min_keyword_length = 3
+    let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
-let g:neocomplcache_dictionary_filetype_lists = {
-    \ 'default' : ''
-    \ }
+    let g:neocomplete#sources#dictionary#dictionaries = {
+        \ 'default' : ''
+        \ }
 
-inoremap <expr><C-g>     neocomplcache#undo_completion()
-inoremap <expr><C-l>     neocomplcache#complete_common_string()
+    if !exists('g:neocomplete#keyword_patterns')
+        let g:neocomplete#keyword_patterns = {}
+    endif
+    let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplcache#close_popup()
-inoremap <expr><C-e>  neocomplcache#cancel_popup()
+    " key-mappings
+    inoremap <expr><C-g>     neocomplete#undo_completion()
+    inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+    " <TAB>: completion.
+    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+    " " <C-h>, <BS>: close popup and delete backword char.
+    inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+    inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+    inoremap <expr><C-y>  neocomplete#close_popup()
+    inoremap <expr><C-e>  neocomplete#cancel_popup()
+
+elseif neobundle#is_installed('neocomplcache')
+    let g:acp_enableAtStartup = 0
+    let g:neocomplcache_enable_at_startup = 1
+    let g:neocomplcache_enable_smart_case = 1
+    let g:neocomplcache_min_syntax_length = 3
+    let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+
+    let g:neocomplcache_dictionary_filetype_lists = {
+        \ 'default' : ''
+        \ }
+
+    " key-mappings
+    inoremap <expr><C-g>     neocomplcache#undo_completion()
+    inoremap <expr><C-l>     neocomplcache#complete_common_string()
+
+    " <TAB>: completion.
+    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+    " <C-h>, <BS>: close popup and delete backword char.
+    inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+    inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+    inoremap <expr><C-y>  neocomplcache#close_popup()
+    inoremap <expr><C-e>  neocomplcache#cancel_popup()
+endif
 
 " NeoSnippet --------------------------
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" jedi-vim ----------------------------
+autocmd FileType python setlocal omnifunc=jedi#completions
+let g:jedi#rename_command = '<Leader>R'
+let g:jedi#popup_select_first = 0
+let g:jedi#popup_on_dot = 1
+let g:jedi#completions_enabled = 0
+let g:jedi#auto_vim_configuration = 0
+
+if neobundle#is_installed('neocomplete')
+    if !exists('g:neocomplete#force_omni_input_patterns')
+        let g:neocomplete#force_omni_input_patterns = {}
+    endif
+    let g:neocomplete#force_omni_input_patterns.python = '\h\w*\|[^. \t]\.\w*'
+elseif neobundle#is_installed('neocomplcache')
+    if !exists('g:neocomplcache_force_omni_patterns')
+        let g:neocomplcache_force_omni_patterns = {}
+    endif
+    let g:neocomplcache_force_omni_patterns.python = '[^. \t]\.\w*'
+endif
+autocmd FileType python setlocal completeopt-=preview
 
 " Key maps ----------------------------------------------------------
 
