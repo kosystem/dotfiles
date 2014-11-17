@@ -12,6 +12,7 @@ set t_Co=256
 set nobackup
 set noundofile
 set clipboard+=unnamed
+set clipboard-=autoselect
 set hidden
 set confirm
 set showmatch
@@ -41,6 +42,7 @@ let g:neobundle_default_git_protocol='https'
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/unite-outline'
 NeoBundle has('lua') ? 'Shougo/neocomplete' : 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'Shougo/neosnippet'
@@ -92,6 +94,7 @@ nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
 nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
 nnoremap <silent> ,uu :<C-u>Unite file_mru buffer<CR>
+nnoremap <silent> ,uo :<C-u>Unite -direction=botright -vertical -winwidth=40 outline<CR><ESC>
 
 "setting for QuickRun
 "let g:quickrun_config = {

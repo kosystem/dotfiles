@@ -5,7 +5,7 @@
     tree = log --decorate --oneline --graph --all
     diffw = diff --word-diff=color
     grep = grep --color -n
-    s = status -s
+    s = status -s --branch
     a = add -p
     d = diff
     t = log --decorate --oneline --graph --all -n
