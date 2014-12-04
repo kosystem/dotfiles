@@ -17,9 +17,10 @@
     ff = false
     tool = vimdiff
 [pager]
-    log = diff-highlight | less
-    show = diff-highlight | less
-    diff = diff-highlight | less
+#    log = diff-highlight | less
+#    show = diff-highlight | less
+#    diff = diff-highlight | less
 
 [core]
 	editor = vim
+	quotepath = false
