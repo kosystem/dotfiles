@@ -29,6 +29,9 @@ set wrap
 set textwidth=0
 set colorcolumn=80
 
+set cursorline
+set cursorcolumn
+
 " NeoBundle ---------------------------------------------------------
 if has('vim_starting')
   set nocompatible
@@ -80,10 +83,10 @@ NeoBundleCheck
 let g:syntastic_python_checkers = ['pyflakes', 'pep8']
 
 " IndentLine --------------------------
-let g:indentLine_char="|"
+let g:indentLine_char="¦"
 let g:indentLine_color_term=239
 let g:indentLine_color_gui='#505050'
-set list listchars=tab:\|\ 
+set list listchars=tab:\¦\ ,trail:·
 
 " Unite -------------------------------
 let g:unite_enable_start_insert=1
@@ -235,3 +238,4 @@ nnoremap <ESC><ESC> :nohlsearch<CR>
 set whichwrap=b,s,h,l,<,>,[,]
 
 
+au BufNewFile,BufRead *.md :set filetype=markdown
