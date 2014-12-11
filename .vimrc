@@ -121,6 +121,7 @@ let g:lightline = {
 if !has('win32')
   colorscheme molokai
 endif
+highlight Normal ctermbg=none
 
 " Zenkaku -----------------------------
 " Show 2byte space
