@@ -25,7 +25,7 @@ set smartcase
 set incsearch
 set hlsearch
 
-set wrap
+set nowrap
 set textwidth=0
 set colorcolumn=80
 
@@ -92,12 +92,15 @@ set list listchars=tab:\¦\ ,trail:·
 let g:unite_enable_start_insert=1
 let g:unite_source_history_yank_enable=1
 
-nnoremap <silent> ,uy :<C-u>Unite history/yank<CR>
-nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
-nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
-nnoremap <silent> ,uu :<C-u>Unite file_mru buffer<CR>
-nnoremap <silent> ,uo :<C-u>Unite -direction=botright -vertical -winwidth=40 outline<CR><ESC>
+nnoremap [unite] <Nop>
+nmap ,u [unite]
+
+nnoremap <silent> [unite]y :<C-u>Unite history/yank<CR>
+nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
+nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+nnoremap <silent> [unite]r :<C-u>Unite -buffer-name=register register<CR>
+nnoremap <silent> [unite]u :<C-u>Unite file_mru buffer<CR>
+nnoremap <silent> [unite]o :<C-u>Unite -direction=botright -vertical -winwidth=40 outline<CR><ESC>
 
 "setting for QuickRun
 "let g:quickrun_config = {
@@ -229,14 +232,35 @@ autocmd FileType python setlocal completeopt-=preview
 
 " Key maps ----------------------------------------------------------
 
-inoremap <C-l> <del>
+inoremap <C-l> <Del>
+nnoremap <CR> i<CR><Esc>
+
+nnoremap j gj
+nnoremap k gk
+nnoremap gj j
+nnoremap gk k
+
+nnoremap sp :<C-u>set paste<CR>"*p<Esc>:<C-u>set nopaste<CR>
+
+nnoremap <Space>w  :<C-u>w<CR>
+
+nnoremap <Space>h  ^
+vnoremap <Space>h  ^
+nnoremap <Space>l  $
+vnoremap <Space>l  $
 
 nnoremap x "_x
 nnoremap s "_s
-nnoremap q <C-w>
+" nnoremap q <C-w>
 nnoremap <silent><C-^> <Nop>
 nnoremap <ESC><ESC> :nohlsearch<CR>
 set whichwrap=b,s,h,l,<,>,[,]
+nmap n nzz
+nmap N Nzz
+nmap * *zz
+nmap # #zz
+
 
 
 au BufNewFile,BufRead *.md :set filetype=markdown
+au BufNewFile,BufRead *.html :set filetype=htmldjango
