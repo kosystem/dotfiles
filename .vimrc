@@ -100,9 +100,9 @@ nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
 nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 nnoremap <silent> [unite]r :<C-u>Unite -buffer-name=register register<CR>
 nnoremap <silent> [unite]u :<C-u>Unite file_mru buffer<CR>
-nnoremap <silent> [unite]o :<C-u>Unite -direction=botright -vertical -winwidth=40 outline<CR><ESC>
+nnoremap <silent> [unite]o :<C-u>Unite -direction=botright -vertical -winwidth=40 outline<CR>
 
-"setting for QuickRun
+" QuickRun ----------------------------
 "let g:quickrun_config = {
 "      \  '_': {
 "      \    'hook/time/enable': '1',
@@ -140,18 +140,8 @@ if has('syntax')
     call ZenkakuSpace()
 endif
 
-" Ctags -------------------------------
-" "TagList.vim
-" "sudo apt-get install exuberant-ctags
-" set tags=tags
-" "let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"  " ctagsのコマンド
-" let Tlist_Show_One_File = 1             " 現在表示中のファイルのみのタグしか表示しない
-" let Tlist_Use_Right_Window = 1          " 右側にtag listのウインドうを表示する
-" let Tlist_Exit_OnlyWindow = 1           " taglistのウインドウだけならVimを閉じる
-" let Tlist_WinWidth = 50
-" map <silent> <leader>l :TlistToggle<CR> " \lでtaglistウインドウを開いたり閉じたり出来るショートカット
 
-" NeoComplcache -----------------------
+" NeoComplete -------------------------
 if neobundle#is_installed('neocomplete')
     let g:neocomplete#enable_at_startup = 1
     let g:neocomplete#enable_ignore_case = 1
@@ -231,7 +221,6 @@ endif
 autocmd FileType python setlocal completeopt-=preview
 
 " Key maps ----------------------------------------------------------
-
 inoremap <C-l> <Del>
 nnoremap <CR> i<CR><Esc>
 
@@ -259,8 +248,6 @@ nmap n nzz
 nmap N Nzz
 nmap * *zz
 nmap # #zz
-
-
 
 au BufNewFile,BufRead *.md :set filetype=markdown
 au BufNewFile,BufRead *.html :set filetype=htmldjango
