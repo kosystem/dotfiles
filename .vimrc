@@ -83,10 +83,10 @@ NeoBundleCheck
 let g:syntastic_python_checkers = ['pyflakes', 'pep8']
 
 " IndentLine --------------------------
-let g:indentLine_char="¦"
+let g:indentLine_char="|"
 let g:indentLine_color_term=239
 let g:indentLine_color_gui='#505050'
-set list listchars=tab:\¦\ ,trail:·
+set list listchars=tab:\|\ ,trail:_
 
 " Unite -------------------------------
 let g:unite_enable_start_insert=1
@@ -229,7 +229,14 @@ nnoremap k gk
 nnoremap gj j
 nnoremap gk k
 
+nnoremap s <Nop>
 nnoremap sp :<C-u>set paste<CR>"*p<Esc>:<C-u>set nopaste<CR>
+nnoremap sy :<C-u>Unite history/yank<CR>
+nnoremap sb :<C-u>Unite buffer<CR>
+nnoremap sf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+nnoremap sr :<C-u>Unite -buffer-name=register register<CR>
+nnoremap su :<C-u>Unite file_mru buffer<CR>
+nnoremap so :<C-u>Unite -direction=botright -vertical -winwidth=40 outline<CR>
 
 nnoremap <Space>w  :<C-u>w<CR>
 
@@ -239,7 +246,6 @@ nnoremap <Space>l  $
 vnoremap <Space>l  $
 
 nnoremap x "_x
-nnoremap s "_s
 " nnoremap q <C-w>
 nnoremap <silent><C-^> <Nop>
 nnoremap <ESC><ESC> :nohlsearch<CR>
