@@ -223,6 +223,7 @@ autocmd FileType python setlocal completeopt-=preview
 " Key maps ----------------------------------------------------------
 inoremap <C-l> <Del>
 nnoremap <CR> i<CR><Esc>
+inoremap <silent> jj <ESC>
 
 nnoremap j gj
 nnoremap k gk
@@ -254,6 +255,11 @@ nmap n nzz
 nmap N Nzz
 nmap * *zz
 nmap # #zz
+nmap G Gzz
+
+nnoremap <silent>bp :bprevious<CR>
+nnoremap <silent>bn :bnext<CR>
+nnoremap <silent>bb :b#<CR>
 
 au BufNewFile,BufRead *.md :set filetype=markdown
 au BufNewFile,BufRead *.html :set filetype=htmldjango
