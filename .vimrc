@@ -257,9 +257,9 @@ nmap * *zz
 nmap # #zz
 nmap G Gzz
 
-nnoremap <silent>bp :bprevious<CR>
-nnoremap <silent>bn :bnext<CR>
-nnoremap <silent>bb :b#<CR>
+nnoremap <silent>sp :bprevious<CR>
+nnoremap <silent>sn :bnext<CR>
+nnoremap <silent>ss :b#<CR>
 
 au BufNewFile,BufRead *.md :set filetype=markdown
 au BufNewFile,BufRead *.html :set filetype=htmldjango
