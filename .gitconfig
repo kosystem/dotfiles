@@ -17,10 +17,14 @@
     ff = false
     tool = vimdiff
 [pager]
-#    log = diff-highlight | less
-#    show = diff-highlight | less
-#    diff = diff-highlight | less
+    # log = diff-highlight | iconv -f CP932 -t UTF-8 | less
+    # log = iconv -f CP932 -t UTF-8 | less --tabs=4
+    show = iconv -f CP932 -t UTF-8 | less --tabs=4
+    diff = iconv -f CP932 -t UTF-8 | less --tabs=4
 
 [core]
 	editor = vim
 	quotepath = false
+	autocrlf = false
+    whitespace = cr-at-eol
+
