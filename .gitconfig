@@ -7,20 +7,42 @@
     grep = grep --color -n
     s = status -s --branch
     a = add -p
-    d = diff
-    t = log --decorate --oneline --graph --all -n
+    t = log --decorate --oneline --graph --all
+    diffj = "! f() { git diff $@ | diff-highlight | iconv -c -f CP932 -t UTF-8;};f"
+    d = "! f() { git diff $@ | diff-highlight | iconv -c -f CP932 -t UTF-8;};f"
 [color]
     ui = auto
 [svn]
     rmdir = true
+
+[diff]
+    tool = p4merge
+[difftool]
+    prompt = false
+[mergetool "p4merge"]
+    cmd = p4merge \"$LOCAL\" \"$REMOTE\"
+    trustExitCode = false
 [merge]
     ff = false
-    tool = vimdiff
+    tool = p4merge
+[mergetool]
+    keepBack = false
+[mergetool "p4merge"]
+    path = p4merge
+    cmd = p4merge \"$LOCAL\" \"$REMOTE\"
+    keepTemporaries = false
+    trustExitCode = false
+
 [pager]
     # log = diff-highlight | iconv -f CP932 -t UTF-8 | less
     # log = iconv -f CP932 -t UTF-8 | less --tabs=4
-    show = iconv -f CP932 -t UTF-8 | less --tabs=4
-    diff = iconv -f CP932 -t UTF-8 | less --tabs=4
+    stash = iconv -c -f CP932 -t UTF-8 | less --tabs=4
+    show = iconv -c -f CP932 -t UTF-8 | less --tabs=4
+    # diff = iconv -c -f CP932 -t UTF-8 | less --tabs=4
+    diffj = less --tabs=4
+    diff = diff-highlight | less --tabs=4
+    d = less --tabs=4
+    blame = iconv -c -f CP932 -t UTF-8 | less --tabs=4
 
 [core]
 	editor = vim

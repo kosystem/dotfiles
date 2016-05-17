@@ -63,8 +63,12 @@ NeoBundle 'itchyny/lightline.vim'
 "NeoBundle 'soramugi/auto-ctags.vim'
 NeoBundle 'scrooloose/syntastic'
 
-"NeoBundle 'davidhalter/jedi-vim'
-"NeoBundleLazy 'lambdalisue/vim-pyenv', {
+NeoBundle 'davidhalter/jedi-vim'
+" NeoBundleLazy 'davidhalter/jedi-vim', {
+"      \ "autoload": {
+"      \   "filetypes": ["python", "python3", "djangohtml"]
+"      \ }}
+" NeoBundleLazy 'lambdalisue/vim-pyenv', {
 "      \ "depends": ['davidhalter/jedi-vim'],
 "      \ "autoload": {
 "      \   "filetypes": ["python", "python3", "djangohtml"]
@@ -214,24 +218,24 @@ smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
 
 " jedi-vim ----------------------------
-"autocmd FileType python setlocal omnifunc=jedi#completions
-"let g:jedi#rename_command = '<Leader>R'
-"let g:jedi#popup_select_first = 0
-"let g:jedi#popup_on_dot = 1
-"let g:jedi#completions_enabled = 0
-"let g:jedi#auto_vim_configuration = 0
-"
-"if neobundle#is_installed('neocomplete')
-"    if !exists('g:neocomplete#force_omni_input_patterns')
-"        let g:neocomplete#force_omni_input_patterns = {}
-"    endif
-"    let g:neocomplete#force_omni_input_patterns.python = '\h\w*\|[^. \t]\.\w*'
-"elseif neobundle#is_installed('neocomplcache')
-"    if !exists('g:neocomplcache_force_omni_patterns')
-"        let g:neocomplcache_force_omni_patterns = {}
-"    endif
-"    let g:neocomplcache_force_omni_patterns.python = '[^. \t]\.\w*'
-"endif
+autocmd FileType python setlocal omnifunc=jedi#completions
+let g:jedi#rename_command = '<Leader>R'
+let g:jedi#popup_select_first = 0
+let g:jedi#popup_on_dot = 1
+let g:jedi#completions_enabled = 0
+let g:jedi#auto_vim_configuration = 0
+
+if neobundle#is_installed('neocomplete')
+   if !exists('g:neocomplete#force_omni_input_patterns')
+       let g:neocomplete#force_omni_input_patterns = {}
+   endif
+   let g:neocomplete#force_omni_input_patterns.python = '\h\w*\|[^. \t]\.\w*'
+elseif neobundle#is_installed('neocomplcache')
+   if !exists('g:neocomplcache_force_omni_patterns')
+       let g:neocomplcache_force_omni_patterns = {}
+   endif
+   let g:neocomplcache_force_omni_patterns.python = '[^. \t]\.\w*'
+endif
 autocmd FileType python setlocal completeopt-=preview
 
 " Key maps ----------------------------------------------------------
@@ -362,6 +366,9 @@ au BufNewFile *.h execute "%s/Name/" . expand("%:t:r") . "/g"
 au BufNewFile *.h execute "%s/YEAR/" . strftime("%Y") . "/g"
 au BufNewFile *.h execute "%s/NAME/" . toupper(expand("%:t:r")) . "/g"
 
+"Session
+au VimLeave * mks!
+
 "autocmd! FileType cpp setlocal shiftwidth=2
 autocmd! FileType html setlocal shiftwidth=2
 
@@ -369,3 +376,4 @@ autocmd QuickFixCmdPost *grep* cwindow
 
 set grepprg=grep\ -rnIH\ --exclude=tags\ --exclude-dir={hard_check,\.git}
 
+autocmd BufNewFile,BufRead *.py nnoremap <C-e> :!python %
