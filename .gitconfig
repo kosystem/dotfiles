@@ -15,22 +15,22 @@
 [svn]
     rmdir = true
 
-[diff]
-    tool = p4merge
-[difftool]
-    prompt = false
-[mergetool "p4merge"]
-    cmd = p4merge \"$LOCAL\" \"$REMOTE\"
-    trustExitCode = false
+# [diff]
+#     tool = p4merge
+# [difftool]
+#     prompt = false
+# [mergetool "p4merge"]
+#     cmd = p4merge \"$LOCAL\" \"$REMOTE\"
+#     trustExitCode = false
 [merge]
-    ff = false
     tool = p4merge
 [mergetool]
     keepBack = false
 [mergetool "p4merge"]
     path = p4merge
-    cmd = p4merge \"$LOCAL\" \"$REMOTE\"
+    # cmd = p4merge \"$LOCAL\" \"$REMOTE\"
     keepTemporaries = false
+    keepBackup = false
     trustExitCode = false
 
 [pager]
