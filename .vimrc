@@ -37,6 +37,8 @@ set colorcolumn=80
 set cursorline
 set cursorcolumn
 
+set synmaxcol=255
+
 " NeoBundle ---------------------------------------------------------
 if has('vim_starting')
   set nocompatible
@@ -101,6 +103,7 @@ let g:indentLine_char="|"
 let g:indentLine_color_term=239
 let g:indentLine_color_gui='#505050'
 set list listchars=tab:\|\ ,trail:_
+let g:indentLine_faster = 1
 
 " Unite -------------------------------
 let g:unite_enable_start_insert=1
@@ -218,25 +221,25 @@ smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
 
 " jedi-vim ----------------------------
-autocmd FileType python setlocal omnifunc=jedi#completions
-let g:jedi#rename_command = '<Leader>R'
-let g:jedi#popup_select_first = 0
-let g:jedi#popup_on_dot = 1
-let g:jedi#completions_enabled = 0
-let g:jedi#auto_vim_configuration = 0
-
-if neobundle#is_installed('neocomplete')
-   if !exists('g:neocomplete#force_omni_input_patterns')
-       let g:neocomplete#force_omni_input_patterns = {}
-   endif
-   let g:neocomplete#force_omni_input_patterns.python = '\h\w*\|[^. \t]\.\w*'
-elseif neobundle#is_installed('neocomplcache')
-   if !exists('g:neocomplcache_force_omni_patterns')
-       let g:neocomplcache_force_omni_patterns = {}
-   endif
-   let g:neocomplcache_force_omni_patterns.python = '[^. \t]\.\w*'
-endif
-autocmd FileType python setlocal completeopt-=preview
+" autocmd FileType python setlocal omnifunc=jedi#completions
+" let g:jedi#rename_command = '<Leader>R'
+" let g:jedi#popup_select_first = 0
+" let g:jedi#popup_on_dot = 1
+" let g:jedi#completions_enabled = 0
+" let g:jedi#auto_vim_configuration = 0
+"
+" if neobundle#is_installed('neocomplete')
+"    if !exists('g:neocomplete#force_omni_input_patterns')
+"        let g:neocomplete#force_omni_input_patterns = {}
+"    endif
+"    let g:neocomplete#force_omni_input_patterns.python = '\h\w*\|[^. \t]\.\w*'
+" elseif neobundle#is_installed('neocomplcache')
+"    if !exists('g:neocomplcache_force_omni_patterns')
+"        let g:neocomplcache_force_omni_patterns = {}
+"    endif
+"    let g:neocomplcache_force_omni_patterns.python = '[^. \t]\.\w*'
+" endif
+" autocmd FileType python setlocal completeopt-=preview
 
 " Key maps ----------------------------------------------------------
 inoremap <C-l> <Del>
@@ -377,3 +380,4 @@ autocmd QuickFixCmdPost *grep* cwindow
 set grepprg=grep\ -rnIH\ --exclude=tags\ --exclude-dir={hard_check,\.git}
 
 autocmd BufNewFile,BufRead *.py nnoremap <C-e> :!python %
+autocmd BufNewFile,BufRead *.py set foldmethod=indent
