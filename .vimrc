@@ -248,6 +248,7 @@ nnoremap <C-k> <C-y>
 nnoremap <C-n> :<C-u>cn<CR>zz
 nnoremap <C-p> :<C-u>cp<CR>zz
 nnoremap <C-c> :<C-u>cclose<CR>
+nnoremap <C-g> :<C-u>gr <C-r><C-w><CR>
 "nnoremap <CR> i<CR><Esc>
 inoremap <silent> jj <ESC>
 
@@ -376,4 +377,9 @@ autocmd QuickFixCmdPost *grep* cwindow
 
 set grepprg=grep\ -rnIH\ --exclude=tags\ --exclude-dir={hard_check,\.git}
 
-autocmd BufNewFile,BufRead *.py nnoremap <C-e> :!python %
+autocmd BufNewFile,BufRead *.py nnoremap <C-e> :<C-u>w<CR>:!python %<CR>
+
+"空はく削除
+autocmd BufWritePre * :%s/\s\+$//ge
+
+
