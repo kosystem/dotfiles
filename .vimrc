@@ -254,6 +254,7 @@ nnoremap <C-n> :<C-u>cn<CR>zz
 nnoremap <C-p> :<C-u>cp<CR>zz
 nnoremap <C-c> :<C-u>cclose<CR>
 nnoremap <C-g> :<C-u>gr <C-r><C-w><CR>
+nnoremap <S-> :<C-u>gr <C-r><C-w> %:h<CR>
 "nnoremap <CR> i<CR><Esc>
 inoremap <silent> jj <ESC>
 
@@ -281,7 +282,7 @@ nnoremap sb :<C-u>Unite buffer<CR>
 nnoremap sf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 nnoremap sr :<C-u>Unite -buffer-name=register register<CR>
 nnoremap su :<C-u>Unite file_mru buffer<CR>
-nnoremap so :<C-u>Unite -direction=botright -vertical -winwidth=40 outline<CR>
+nnoremap so :<C-u>Unite -direction=botright -vertical -winwidth=80 outline<CR>
 nnoremap sd :<C-u>Unite directory<CR>
 
 nnoremap <Space>w  :<C-u>w<CR>
@@ -297,7 +298,7 @@ nnoremap <Space>j  zj
 nnoremap <Space>k  zk
 nnoremap <Space>n  ]z
 nnoremap <Space>p  [z
-nnoremap <Space>o  zo
+nnoremap <Space>o  zO
 nnoremap <Space>a  za
 nnoremap <Space>m  zM
 nnoremap <Space>v  zv
