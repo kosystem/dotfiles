@@ -83,6 +83,8 @@ NeoBundle 'octol/vim-cpp-enhanced-highlight'
 NeoBundle 'vim-jp/cpp-vim'
 NeoBundle 'tyru/caw.vim'
 
+NeoBundle 'peterhoeg/vim-qml'
+
 "Color schemes ------------------------
 NeoBundle 'tomasr/molokai'
 NeoBundle 'w0ng/vim-hybrid'
@@ -359,7 +361,7 @@ nnoremap <silent>ss :b#<CR>
 
 au BufNewFile,BufRead *.md :set filetype=markdown
 au BufNewFile,BufRead *.html :set filetype=htmldjango
-" Template 
+" Template
 au! BufNewFile *.cpp
 au BufNewFile *.cpp 0r ~/.vim/templates/template.cpp
 au BufNewFile *.cpp execute "%s/Name/" . expand("%:t:r") . "/g"
@@ -371,7 +373,7 @@ au BufNewFile *.h execute "%s/YEAR/" . strftime("%Y") . "/g"
 au BufNewFile *.h execute "%s/NAME/" . toupper(expand("%:t:r")) . "/g"
 
 "Session
-au VimLeave * mks!
+" au VimLeave * mks!
 
 "autocmd! FileType cpp setlocal shiftwidth=2
 autocmd! FileType html setlocal shiftwidth=2
@@ -383,8 +385,15 @@ set grepprg=grep\ -rnIH\ --exclude=tags\ --exclude-dir={hard_check,\.git}
 
 autocmd BufNewFile,BufRead *.py set foldmethod=indent
 autocmd BufNewFile,BufRead *.py nnoremap <C-e> :<C-u>w<CR>:!python %<CR>
+autocmd BufNewFile,BufRead *.qml nnoremap <C-e> :<C-u>w<CR>:QuickRun<CR>
 
 "空はく削除
 autocmd BufWritePre * :%s/\s\+$//ge
 
-
+let g:quickrun_config['qml/qmlscene'] = {
+\	'command' : 'qmlscene',
+\	'exec'    : '%c %s:p',
+\	'runner'  : 'vimproc',
+\	'quickfix/errorformat' : 'file:///%f:%l %m',
+\ }
+let g:quickrun_config['qml'] = g:quickrun_config['qml/qmlscene']
