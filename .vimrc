@@ -66,10 +66,10 @@ NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'scrooloose/syntastic'
 
 NeoBundle 'davidhalter/jedi-vim'
-" NeoBundleLazy 'davidhalter/jedi-vim', {
-"      \ "autoload": {
-"      \   "filetypes": ["python", "python3", "djangohtml"]
-"      \ }}
+NeoBundleLazy 'davidhalter/jedi-vim', {
+     \ "autoload": {
+     \   "filetypes": ["python", "python3", "djangohtml"]
+     \ }}
 " NeoBundleLazy 'lambdalisue/vim-pyenv', {
 "      \ "depends": ['davidhalter/jedi-vim'],
 "      \ "autoload": {
@@ -83,7 +83,7 @@ NeoBundle 'octol/vim-cpp-enhanced-highlight'
 NeoBundle 'vim-jp/cpp-vim'
 NeoBundle 'tyru/caw.vim'
 
-NeoBundle 'peterhoeg/vim-qml'
+NeoBundle 'scrooloose/nerdtree'
 
 "Color schemes ------------------------
 NeoBundle 'tomasr/molokai'
@@ -94,10 +94,12 @@ call neobundle#end()
 filetype plugin indent on
 NeoBundleCheck
 let g:cpp_class_scope_highlight = 1
+" let g:python_highlight_all = 1
 
 " End NeoBundle -----------------------------------------------------
 
 " Syntastic ---------------------------
+let g:syntastic_enable_python_checker = 1
 let g:syntastic_python_checkers = ['pyflakes', 'pep8']
 
 " IndentLine --------------------------
@@ -229,25 +231,25 @@ smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
 
 " jedi-vim ----------------------------
-" autocmd FileType python setlocal omnifunc=jedi#completions
-" let g:jedi#rename_command = '<Leader>R'
-" let g:jedi#popup_select_first = 0
-" let g:jedi#popup_on_dot = 1
-" let g:jedi#completions_enabled = 0
-" let g:jedi#auto_vim_configuration = 0
-"
-" if neobundle#is_installed('neocomplete')
-"    if !exists('g:neocomplete#force_omni_input_patterns')
-"        let g:neocomplete#force_omni_input_patterns = {}
-"    endif
-"    let g:neocomplete#force_omni_input_patterns.python = '\h\w*\|[^. \t]\.\w*'
-" elseif neobundle#is_installed('neocomplcache')
-"    if !exists('g:neocomplcache_force_omni_patterns')
-"        let g:neocomplcache_force_omni_patterns = {}
-"    endif
-"    let g:neocomplcache_force_omni_patterns.python = '[^. \t]\.\w*'
-" endif
-" autocmd FileType python setlocal completeopt-=preview
+autocmd FileType python setlocal omnifunc=jedi#completions
+let g:jedi#rename_command = '<Leader>R'
+let g:jedi#popup_select_first = 0
+let g:jedi#popup_on_dot = 1
+let g:jedi#completions_enabled = 0
+let g:jedi#auto_vim_configuration = 0
+
+if neobundle#is_installed('neocomplete')
+   if !exists('g:neocomplete#force_omni_input_patterns')
+       let g:neocomplete#force_omni_input_patterns = {}
+   endif
+   let g:neocomplete#force_omni_input_patterns.python = '\h\w*\|[^. \t]\.\w*'
+elseif neobundle#is_installed('neocomplcache')
+   if !exists('g:neocomplcache_force_omni_patterns')
+       let g:neocomplcache_force_omni_patterns = {}
+   endif
+   let g:neocomplcache_force_omni_patterns.python = '[^. \t]\.\w*'
+endif
+autocmd FileType python setlocal completeopt-=preview
 
 " Key maps ----------------------------------------------------------
 inoremap <C-l> <Del>
@@ -290,6 +292,7 @@ nnoremap sr :<C-u>Unite -buffer-name=register register<CR>
 nnoremap su :<C-u>Unite file_mru buffer<CR>
 nnoremap so :<C-u>Unite -direction=botright -vertical -winwidth=80 outline<CR>
 nnoremap sd :<C-u>Unite directory<CR>
+nnoremap st :<C-u>NERDTreeToggle<CR>:<C-u>NERDTreeFind<CR>
 
 nnoremap <Space>w  :<C-u>w<CR>
 
@@ -395,7 +398,7 @@ autocmd BufNewFile,BufRead *.py nnoremap <C-e> :<C-u>w<CR>:!python %<CR>
 autocmd BufNewFile,BufRead *.qml nnoremap <C-e> :<C-u>w<CR>:QuickRun<CR>
 
 "空はく削除
-autocmd BufWritePre * :%s/\s\+$//ge
+"autocmd BufWritePre * :%s/\s\+$//ge
 
 let g:quickrun_config['qml/qmlscene'] = {
 \	'command' : 'qmlscene',
