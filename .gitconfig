@@ -50,3 +50,6 @@
 	autocrlf = false
     whitespace = cr-at-eol
 
+[url "https://"]
+   # insteadof = git://
+
