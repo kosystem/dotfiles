@@ -153,6 +153,11 @@ if !has('win32')
 endif
 highlight Normal ctermbg=none
 highlight Search guibg=#A9E2F3
+highlight Comment ctermfg=59 guifg=#5c7176
+highlight SpecialKey gui=bold
+highlight Folded gui=bold guifg=#295a7c
+highlight Todo gui=bold guibg=#CD5907
+highlight cNote gui=bold guibg=#07CD49
 
 set sessionoptions-=folds
 set sessionoptions-=options
