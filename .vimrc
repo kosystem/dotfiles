@@ -68,7 +68,6 @@ NeoBundleLazy 'lambdalisue/vim-pyenv', {
 NeoBundle 'Yggdroot/indentLine'
 "NeoBundle 'bronson/vim-trailing-whitespace'
 NeoBundle 'sentientmachine/Pretty-Vim-Python'
-NeoBundle 'LeafCage/foldCC.vim'
 
 "Color schemes ------------------------
 NeoBundle 'tomasr/molokai'
@@ -247,12 +246,6 @@ vnoremap <Space>h  ^
 nnoremap <Space>l  $
 vnoremap <Space>l  $
 
-nnoremap <Space>o  zo
-nnoremap <Space>O  zO
-nnoremap <Space>c  zc
-nnoremap <Space>C  zC
-nnoremap <Space>i  zi
-
 nnoremap x "_x
 " nnoremap q <C-w>
 nnoremap <silent><C-^> <Nop>
@@ -268,14 +261,5 @@ nnoremap <silent>sp :bprevious<CR>
 nnoremap <silent>sn :bnext<CR>
 nnoremap <silent>ss :b#<CR>
 
-" File types --------------------------
 au BufNewFile,BufRead *.md :set filetype=markdown
 au BufNewFile,BufRead *.html :set filetype=htmldjango
-
-autocmd! FileType cpp setlocal shiftwidth=2
-autocmd! FileType c setlocal shiftwidth=2
-" Folding -----------------------------
-set foldtext=FoldCCtext()
-set foldmethod=indent
-set foldcolumn=4
-set nofoldenable
