@@ -8,6 +8,7 @@
     s = status -s --branch
     a = add -p
     t = log --decorate --oneline --graph --all
+    tp = log --decorate --oneline --graph --all --pretty='format:%C(yellow)%h %C(green)%ad %<(8,trunc)%C(blue)%an%C(auto)%d %C(reset)%s' --date=short
     diffj = "! f() { git diff $@ | diff-highlight | iconv -c -f CP932 -t UTF-8;};f"
     d = "! f() { git diff $@ | diff-highlight | iconv -c -f CP932 -t UTF-8;};f"
 [color]
